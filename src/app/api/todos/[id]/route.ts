@@ -32,12 +32,12 @@ export async function GET(request: Request, { params }: Segments) {
 export async function PUT(request: Request, { params }: Segments) {
     const { id } = await params;
     try {
-        const { description, complete } = await todoDTO.validate(await request.json());
+        const {  complete } = await todoDTO.validate(await request.json());
         const { error } = await findById(id);        
         if (error) {
             return NextResponse.json({ error: "Todo not found" }, { status: 404 });
         }
-        const todo = await prisma.todo.update({ where: { id }, data: { description, complete }, });
+        const todo = await prisma.todo.update({ where: { id }, data: {  complete }, });
         return NextResponse.json({ todo });
     } catch (error) {
         return NextResponse.json({ error }, { status: 400 });
