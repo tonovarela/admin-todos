@@ -32,7 +32,7 @@ export async function GET(request: Request, { params }: Segments) {
 export async function PUT(request: Request, { params }: Segments) {
     const { id } = await params;
     try {
-        const {  complete } = await todoDTO.validate(await request.json());
+        const {  complete  =false} = await request.json();        
         const { error } = await findById(id);        
         if (error) {
             return NextResponse.json({ error: "Todo not found" }, { status: 404 });

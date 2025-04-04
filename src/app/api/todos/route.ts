@@ -23,15 +23,27 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: Request) {
-
     try {
         const body = await todoDTO.validate(await request.json());
-        const todo = await prisma.todo.create({ data: body });
+        const todo = await prisma.todo.create({
+            data: {
+                description: body.description,                
+            }
+        })
         return NextResponse.json({ todo }, { status: 201 });
     } catch (error) {
 
         return NextResponse.json({ error }, { status: 400 });
     }
+}
 
+
+export async function DELETE(_: Request) {
+    try {
+        await prisma.todo.deleteMany({ where: { complete: true } });
+        return NextResponse.json({ message: "Todos deleted" });
+    }catch (error) {
+        return NextResponse.json({ error }, { status: 400 });
+    }
 
 }
