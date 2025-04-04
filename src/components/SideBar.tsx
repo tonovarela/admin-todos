@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CiLogout } from "react-icons/ci";
 
-import {  IoCalendarOutline, IoCheckboxOutline, IoListOutline,IoCodeWorkingOutline } from "react-icons/io5";
+import {  IoCalendarOutline, IoCheckboxOutline, IoListOutline,IoCodeWorkingOutline, IoBasketOutline } from "react-icons/io5";
 import { SideBarItem } from "./SideBarItem";
 
 const menuItems = [
@@ -24,6 +24,11 @@ const menuItems = [
     icon: <IoCodeWorkingOutline/>,
     title: "Cookies",
     url: "/dashboard/cookies" 
+  },
+  {
+    icon: <IoBasketOutline/>,
+    title: "Products",
+    url: "/dashboard/products" 
   },
 
 ];
