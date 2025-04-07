@@ -1,16 +1,5 @@
 
-/*
-cookie:cart {
-'uui-789':1,
-'uui-456':2,
-'uui-101':3,
-'uui-123':4
-}
-
-*/
-
 import { getCookie, hasCookie, setCookie } from "cookies-next"
-
 
 export const getCookieCart = ():{ [id:string]:number } => {
     if (hasCookie("cart")) {
@@ -37,4 +26,18 @@ export const removeProductCart = (id:string) => {
     
     setCookie("cart", JSON.stringify(cart));
 }
+
+
+export const removeSingleItemFromCart = (id:string) => {
+    const cart = getCookieCart();
+    if (cart[id]) {
+        cart[id] -= 1;
+        if (cart[id] <= 0) {
+            delete cart[id];
+        }
+    }
+    setCookie("cart", JSON.stringify(cart));
+}
+
+
 
