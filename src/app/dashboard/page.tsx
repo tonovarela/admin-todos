@@ -1,25 +1,32 @@
 import { WidgetItem } from "@/components";
 
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  
+  // Si no hay sesion, redirigir a la pagina de login
+  if (!session) {
+    redirect('/api/auth/signin');
+  }
+
+  const { user } = session;
+
   return (
     <>
-      
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <WidgetItem title="Info 1">
-            <h2 className="text-2xl font-bold">Hola mundo</h2>
-            </WidgetItem>
-          <WidgetItem title="Info 2">
-          <h2 className="text-2xl font-bold">Hola mundo</h2>
-            </WidgetItem>
-          <WidgetItem title="Info 3">
-          <h2 className="text-2xl font-bold">Hola mundo</h2>
-          </WidgetItem>
-          <WidgetItem title="Info 4">
-          <h2 className="text-2xl font-bold">Hola mundo</h2>
-            </WidgetItem>
-        </div>
-      
+
+      <div className="grid gap-6  grid-cols-1  sm:grid-cols-2 lg:grid-cols-3">
+
+        <WidgetItem title="Usuario conectado S-side">
+          <div className="flex flex-col">
+            <span>{user?.name}</span>
+            <span>{user?.image}</span>
+            <span>{user?.email}</span>
+          </div>
+        </WidgetItem>
+      </div>
+
     </>
   );
 }
