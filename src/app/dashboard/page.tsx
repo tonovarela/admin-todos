@@ -18,6 +18,9 @@ export default async function Page() {
             <span>{user?.name}</span>
             <span>{user?.image}</span>
             <span>{user?.email}</span>
+            <pre>
+              {JSON.stringify(session, null, 2)}
+            </pre>
           </div>
         </WidgetItem>
       </div>
