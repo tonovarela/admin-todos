@@ -13,7 +13,7 @@ export default async function CookiesPage() {
     const cookieStore= cookies();
     const cookiePromise = await cookieStore;
     const cookieTabValue = cookiePromise.get('selectedTab')?.value ?? '1';    
-    const allCookies = cookiePromise.getAll();
+    //const allCookies = cookiePromise.getAll();
     
     return (
         <>        

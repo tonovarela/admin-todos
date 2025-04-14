@@ -13,6 +13,8 @@ model Todo {
   complete    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
 
 
@@ -20,17 +22,25 @@ model Todo {
 model User {
   id            String          @id @default(uuid())
   name          String?
+  password      String?
   email         String          @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+
   // Optional for WebAuthn support
   Authenticator Authenticator[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+   roles String[] @default(["user"])
+   isActive Boolean @default(true)
+   todos Todo[] 
+
 }
+
+
  
 model Account {
   userId            String

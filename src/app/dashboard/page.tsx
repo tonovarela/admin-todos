@@ -12,12 +12,12 @@ export default async function Page() {
   const { user } = session;
   return (
     <>
-      <div className="grid gap-6  grid-cols-1  sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6  grid-cols-1 ">
         <WidgetItem title="Usuario conectado S-side">
           <div className="flex flex-col">
             <span>{user?.name}</span>
             <span>{user?.image}</span>
-            <span>{user?.email}</span>
+            <span>{user?.email}</span>            
             <pre>
               {JSON.stringify(session, null, 2)}
             </pre>

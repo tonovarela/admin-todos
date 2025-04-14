@@ -16,13 +16,13 @@ export default async function DashboardLayout({
   if (!user) {
     redirect('/api/auth/signin');
   }
-  let { image, name } = user;
+  let { image, name,roles } = user;
   
 
  
   return (
     <>
-      <SideBar username={name!} image={image || 'https://avatars.githubusercontent.com/u/1?v=4'} rol="ADMIN" />
+      <SideBar username={name!} image={image || 'https://avatars.githubusercontent.com/u/1?v=4'} rol={roles?.join(",")} />
       <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] min-h-screen">
         <TopMenu />
         <div className="px-6 pt-6  p-2 m-2 pb-5 rounded bg-white">

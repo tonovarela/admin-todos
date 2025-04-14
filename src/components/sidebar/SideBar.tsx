@@ -67,7 +67,7 @@ export const SideBar = ({username,image,rol="ADMIN"}:Props) => {
             <Image src={image} alt="" className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
               width={150} height={150} />                        
             <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{username}</h5>
-            <span className="hidden text-gray-400 lg:block">{rol}</span>
+            <span className="hidden uppercase text-gray-400 lg:block">{rol}</span>
           </div>
 
           <ul className="space-y-2 tracking-wide mt-8">

@@ -40,6 +40,10 @@ npm run dev
 - TailwindCSS
 - Docker (opcional)
 
+## Nota: Usuario de prueba 
+__usuario:__ test1@google.com
+__password:__ 123456
+
 ## Estructura del proyecto
 
 ```
