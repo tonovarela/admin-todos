@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { todoDTO } from "../DTO/todoDTO";
 
+import { getUserSessionServer } from "@/app/auth/actions/action";
+
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -23,11 +25,17 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: Request) {
+    const user =await getUserSessionServer();
+    if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     try {
         const body = await todoDTO.validate(await request.json());
         const todo = await prisma.todo.create({
             data: {
-                description: body.description,                
+                userId: user.id,
+                description: body.description,                        
             }
         })
         return NextResponse.json({ todo }, { status: 201 });
@@ -39,8 +47,12 @@ export async function POST(request: Request) {
 
 
 export async function DELETE(_: Request) {
+    const user =await getUserSessionServer();
+    if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     try {
-        await prisma.todo.deleteMany({ where: { complete: true } });
+        await prisma.todo.deleteMany({ where: { complete: true ,userId:user.id} });
         return NextResponse.json({ message: "Todos deleted" });
     }catch (error) {
         return NextResponse.json({ error }, { status: 400 });

@@ -3,14 +3,21 @@ import prisma from "@/lib/prisma";
 
 import { NextResponse } from "next/server";
 import { todoDTO } from '../../DTO/todoDTO';
+import { getUserSessionServer } from "@/app/auth/actions/action";
+import { use } from "react";
 
 interface Segments {
     params: Promise<{ id: string }>;
 }
 
 async function findById(id: string) {
+    const user =await getUserSessionServer();
+    if (!user) {
+        return { error: true, message: "Todo not found" }
+    }
+
     try {
-        const todo = await prisma.todo.findFirstOrThrow({ where: { id } });
+        const todo = await prisma.todo.findFirstOrThrow({ where: { id ,userId:user.id} });
         return { error: false, todo };
     }
     catch (error) {
@@ -30,7 +37,7 @@ export async function GET(request: Request, { params }: Segments) {
 
 
 export async function PUT(request: Request, { params }: Segments) {
-    const { id } = await params;
+    const { id } = await params;       
     try {
         const {  complete  =false} = await request.json();        
         const { error } = await findById(id);        
